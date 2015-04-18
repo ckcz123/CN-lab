@@ -18,7 +18,7 @@ public class ServerThread extends Thread implements Runnable {
 	}
 	public void run() {
 		try {
-			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, dd MMM yyyy kk:mm:ss 'GMT'", Locale.UK);
+			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("EEE, dd MMM yyyy kk:mm:ss 'GMT'", Locale.getDefault());
 			simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 			
 			InetAddress inetAddress=socket.getInetAddress();
@@ -79,7 +79,7 @@ public class ServerThread extends Thread implements Runnable {
 			long fileLaseModified=file.lastModified();
 			// 304
 			if (lastModified!=null
-					&& lastModified.getTime()>fileLaseModified) {
+					&& lastModified.getTime()>=fileLaseModified) {
 				printWriter.print("HTTP/1.1 304 Not Modified\r\n");
 				printWriter.print("\r\n");
 				printWriter.flush();
